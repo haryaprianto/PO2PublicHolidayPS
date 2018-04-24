@@ -19,7 +19,6 @@ public class Main2Activity extends AppCompatActivity {
     ArrayList<HolidayDetail>holidays;
     ArrayList<HolidayDetail>holidaysReligion;
     ArrayAdapter aa;
-    ArrayAdapter aaReligion;
     ListView lvDetail;
 
 
@@ -35,33 +34,27 @@ public class Main2Activity extends AppCompatActivity {
         tvHoliday.setText(holidayTitle);
 
         holidays = new ArrayList<HolidayDetail>();
-        holidaysReligion = new ArrayList<HolidayDetail>();
 
-        holidays.add(new HolidayDetail("New Year's Day","1 Jan 2017"));
-        holidays.add(new HolidayDetail("Labour Day","1 May 2017"));
-
-        holidaysReligion.add(new HolidayDetail("Chinese New Year","28-29 Jan 2017"));
-        holidaysReligion.add(new HolidayDetail(" Good Friday","14 April 2017"));
-
+        if(holidayTitle.equals("Secular")){
+            holidays.add(new HolidayDetail("New Year's Day","1 Jan 2017"));
+            holidays.add(new HolidayDetail("Labour Day","1 May 2017"));
+        }
+        else{
+            holidays.add(new HolidayDetail("Chinese New Year","28-29 Jan 2017"));
+            holidays.add(new HolidayDetail(" Good Friday","14 April 2017"));
+        }
         aa = new HolidayAdapter(this,R.layout.row,holidays);
-
-        aaReligion = new HolidayAdapter(this,R.layout.row,holidaysReligion);
         lvDetail.setAdapter(aa);
-        lvDetail.setAdapter(aaReligion);
 
         lvDetail.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 HolidayDetail selectedDetail = holidays.get(position);
-                HolidayDetail selectedDetailReligion = holidaysReligion.get(position);
+
 
                 Toast.makeText(Main2Activity.this, selectedDetail.getHolidayTitle()+ " Date: " + selectedDetail.getHolidayDate(),
                         Toast.LENGTH_LONG).show();
-
-                Toast.makeText(Main2Activity.this, selectedDetailReligion.getHolidayTitle()+ " Date: " + selectedDetailReligion.getHolidayDate(),
-                        Toast.LENGTH_LONG).show();
-
 
             }
         });
